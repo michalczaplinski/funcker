@@ -1,15 +1,31 @@
 {
   "name": "make-your-own-serverless",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
-    "execa": "^4.0.3"
+    "execa": "^4.0.3",
+    "express": "^4.17.1",
+    "get-port": "^5.1.1",
+    "got": "^11.5.1",
+    "wait-on": "^5.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "@types/execa": "^2.0.0",
+    "@types/express": "^4.17.7",
+    "@types/get-port": "^4.2.0",
+    "@types/got": "^9.6.11",
+    "@types/node": "^14.0.23",
+    "@types/wait-on": "^4.0.0",
+    "eslint": "^7.4.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "ts-node-dev": "^1.0.0-pre.52",
+    "typescript": "^3.9.7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "start": "node index.js",
+    "dev": "ts-node-dev index.ts"
+  }
 }
