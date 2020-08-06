@@ -108,6 +108,21 @@ app.post("/create", async (req, res) => {
   }
 });
 
+app.delete("/delete/:name", async (req, res) => {
+  const { name } = req.params;
+
+  const runningContainerId = await getRunningContainerID(name);
+
+  removeRoute(`/${name}`, app._router.stack);
+
+  if (runningContainerId) {
+    await execa("docker", ["rm", "--force", runningContainerId], {
+      stdio: "inherit",
+    });
+  }
+  res.send("OK");
+});
+
 async function init() {
   const containerInfo = await getContainerInfo();
 

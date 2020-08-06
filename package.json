@@ -9,6 +9,9 @@
     "got": "^11.5.1",
     "wait-on": "^5.1.0"
   },
+  "bin": {
+    "funcker": "./cli.js"
+  },
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
