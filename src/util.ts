@@ -77,12 +77,12 @@ export async function createFunctionFiles(
 
   // Save the package.json in the temporary directory
   await writeFilePromise(
-    `./${name}/package.json`,
+    `../${name}/package.json`,
     JSON.stringify(packageJson, null, 2)
   );
 
   // Save our serverless function in the directory
-  await writeFilePromise(`./${name}/function.js`, script);
+  await writeFilePromise(`../${name}/function.js`, script);
 }
 
 export async function processInput(

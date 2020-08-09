@@ -1,4 +1,4 @@
-import { getContainerInfo, getRunningContainerID } from "../util";
+import { getContainerInfo, getRunningContainerID } from "./util";
 
 test("getting the container info", async () => {
   expect(await getContainerInfo()).toMatchInlineSnapshot(`Array []`);
