@@ -1,7 +1,7 @@
 import stream from "stream";
 import { writeFile, mkdir } from "fs";
 import { promisify } from "util";
-import { resolve } from "path";
+import { join } from "path";
 
 import express, { Response } from "express";
 import got from "got";
@@ -74,16 +74,16 @@ export async function createFunctionFiles(
   packageJson: any,
   script: any
 ) {
-  await mkdirPromise(resolve(`../${name}`));
+  await mkdirPromise(join(__dirname, `../${name}`));
 
   // Save the package.json in the temporary directory
   await writeFilePromise(
-    resolve(`../${name}/package.json`),
+    join(__dirname, `../${name}/package.json`),
     JSON.stringify(packageJson, null, 2)
   );
 
   // Save our serverless function in the directory
-  await writeFilePromise(resolve(`../${name}/function.js`), script);
+  await writeFilePromise(join(__dirname, `../${name}/function.js`), script);
 }
 
 export async function processInput(
