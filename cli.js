@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const readFile = require("fs/promises");
+const { readFile } = require("fs/promises");
 const { existsSync } = require("fs");
 const got = require("got");
 const program = require("commander");
 
 const parseFileToObject = async (filename) => {
+  const fileContents = await readFile(filename, "utf-8");
   try {
-    const fileContents = await readFile(filename, "utf-8");
     const content = JSON.parse(fileContents);
     return content;
   } catch (err) {
@@ -22,11 +22,11 @@ function validateFileExists(filename) {
 }
 
 const create = async () => {
-  validateFileExists("./package.json");
-  validateFileExists("./index.js");
-  validateFileExists("./funcker.config.json");
-
   try {
+    validateFileExists("./package.json");
+    validateFileExists("./index.js");
+    validateFileExists("./funcker.config.json");
+
     const packageJson = await parseFileToObject("./package.json");
     const { name } = packageJson;
     if (!name) {
