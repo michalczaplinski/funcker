@@ -1,11 +1,14 @@
 import stream from "stream";
+import { writeFile, mkdir } from "fs";
 import { promisify } from "util";
 
-import express from "express";
+import express, { Response } from "express";
 import got from "got";
 import execa from "execa";
 
 const pipeline = promisify(stream.pipeline);
+const writeFilePromise = promisify(writeFile);
+const mkdirPromise = promisify(mkdir);
 
 export async function getContainerInfo() {
   const { stdout } = await execa.command(
@@ -36,7 +39,6 @@ export function createFunction(
     await pipeline(req, postStream);
     await pipeline(postStream, res);
   });
-  console.log(`Created a function for ${name}`);
 }
 
 export function removeRoute(
@@ -64,4 +66,48 @@ export async function getRunningContainerID(name: string) {
   const [runningContainerId] = stdout.split(":");
 
   return runningContainerId;
+}
+
+export async function createFunctionFiles(
+  name: any,
+  packageJson: any,
+  script: any
+) {
+  await mkdirPromise(name);
+
+  // Save the package.json in the temporary directory
+  await writeFilePromise(
+    `./${name}/package.json`,
+    JSON.stringify(packageJson, null, 2)
+  );
+
+  // Save our serverless function in the directory
+  await writeFilePromise(`./${name}/function.js`, script);
+}
+
+export async function processInput(
+  sub: execa.ExecaChildProcess<string>,
+  res: express.Response,
+  options: { log: boolean } = { log: true }
+) {
+  sub.stdout.on("data", (data) => {
+    res.write(data);
+    console.log(options);
+    if (options.log) {
+      console.log(data.toString());
+    }
+  });
+
+  sub.on("error", (err) => {
+    res.write(err);
+    res.end();
+    console.log(err);
+  });
+
+  await sub;
+}
+
+export function respondAndLog(res: Response, input: string) {
+  console.log(input);
+  res.write(`${input}\n`);
 }

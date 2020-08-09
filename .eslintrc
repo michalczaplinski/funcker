@@ -6,7 +6,7 @@
     "eslint:recommended",
     "plugin:import/recommended"
   ],
-  "plugins": ["promise", "node"],
+  "plugins": ["node"],
   "env": {
     "browser": true,
     "node": true,
