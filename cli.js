@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { readFile } from "fs/promises";
-import { existsSync } from "fs";
-import got from "got";
-import program from "commander";
+const readFile = require("fs/promises");
+const { existsSync } = require("fs");
+const got = require("got");
+const program = require("commander");
 
 const parseFileToObject = async (filename) => {
   try {
