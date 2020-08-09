@@ -74,7 +74,7 @@ export async function createFunctionFiles(
   packageJson: any,
   script: any
 ) {
-  await mkdirPromise(name);
+  await mkdirPromise(resolve(`../${name}`));
 
   // Save the package.json in the temporary directory
   await writeFilePromise(
