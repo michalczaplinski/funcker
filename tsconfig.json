@@ -2,6 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "lib": ["es2019"],
-    "checkJs": true
+    "checkJs": true,
+    "allowJs": true
   }
 }
